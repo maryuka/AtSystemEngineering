@@ -25,5 +25,9 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
+  },
+  "volta": {
+    "node": "22.9.0",
+    "yarn": "4.5.0"
   }
 }
