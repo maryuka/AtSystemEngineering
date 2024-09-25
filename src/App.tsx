@@ -1,7 +1,6 @@
 import theme from './theme.ts';
 import { AppProvider, Navigation } from '@toolpad/core'
 import { Dashboard } from '@mui/icons-material';
-import Home from './Home.tsx';
 import { Routes, Route } from 'react-router-dom';
 import Page from './Page.tsx';
 
@@ -21,8 +20,8 @@ const App = () => {
     return (
         <AppProvider theme={theme} navigation={NAVIGATION}>
             <Routes>
-                <Route index element={<Home />} />
-                <Route path="page" element={<Page />} />
+                <Route index element={<Page />} />
+                {/* <Route path="page" element={<Page />} /> */}
             </Routes>
         </AppProvider>
     )
