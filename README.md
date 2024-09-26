@@ -1,6 +1,6 @@
 # Build Local
 
-1. voltaのダウンロード  
+事前準備：voltaのダウンロード  
 ```bash
 curl https://get.volta.sh | bash
 ```
@@ -8,12 +8,16 @@ curl https://get.volta.sh | bash
 source ~/.bashrc # または ~/.zshrc
 ```
 
-2. nodejs、yarnとパッケージをインストール  
+1. clone
+
+2. クローンしたディレクトリに移動
+
+3. nodejs、yarnとパッケージをインストール  
 ```bash
 yarn install
 ```
 
-3. ローカルサーバーを立ち上げる
+4. ローカルサーバーを立ち上げる
 ```bash
 yarn dev
 ```
