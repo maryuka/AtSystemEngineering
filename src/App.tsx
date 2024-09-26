@@ -3,6 +3,7 @@ import { AppProvider, Navigation } from '@toolpad/core'
 import { Dashboard } from '@mui/icons-material';
 import { Routes, Route } from 'react-router-dom';
 import Page from './Page.tsx';
+import Question from './Question.tsx';
 
 const NAVIGATION: Navigation = [
     {
@@ -21,7 +22,7 @@ const App = () => {
         <AppProvider theme={theme} navigation={NAVIGATION}>
             <Routes>
                 <Route index element={<Page />} />
-                {/* <Route path="page" element={<Page />} /> */}
+                <Route path="/question" element={<Question />} />
             </Routes>
         </AppProvider>
     )
