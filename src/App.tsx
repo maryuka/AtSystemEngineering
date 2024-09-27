@@ -9,58 +9,29 @@ import Question2 from './Question2.tsx';
 import Feedback2 from './Feedback2.tsx';
 import StorageIcon from '@mui/icons-material/Storage';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import DatabaseQuestions from './Database.tsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const NAVIGATION = (navigate: (path: string) => void) => [
     {
-        segment: 'question/1',
-        title: '問題1',
+        segment: 'categories/1',
+        title: 'データベース設計',
         icon: <StorageIcon />,
-        onClick: () => navigate('/question/1'),
+        onClick: () => navigate('/categories/1'),
     },
     {
-        segment: 'question/2',
-        title: '問題2',
+        segment: 'categories/2',
+        title: 'API設計',
         icon: <StorageIcon />,
-        onClick: () => navigate('/question/2'),
+        onClick: () => navigate('/categories/2'),
     },
     {
-        segment: 'question/1/feedback',
-        title: 'フィードバック1',
-        icon: <ThumbUpAltIcon />,
-        onClick: () => navigate('/question/1/feedback'),
-    },
-    {
-        segment: 'question/2/feedback',
-        title: 'フィードバック2',
-        icon: <ThumbUpAltIcon />,
-        onClick: () => navigate('/question/2/feedback'),
+        segment: 'categories/3',
+        title: 'UI設計',
+        icon: <StorageIcon />,
+        onClick: () => navigate('/categories/3'),
     },
 ];
-
-function DemoPageContent({ pathname }: { pathname: string }) {
-    if (pathname === '/question/1/feedback')
-        return <Feedback1 />;
-    if (pathname === '/question/2/feedback')
-        return <Feedback2 />;
-    if (pathname === '/question/1')
-        return <Question1 />;
-    if (pathname === '/question/2')
-        return <Question2 />;
-
-    return (
-        <Box
-            sx={{
-                py: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-            }}
-        >
-            <Typography>Dashboard content for {pathname}</Typography>
-        </Box>
-    );
-}
 
 const App = () => {
     const [pathname, setPathname] = useState(window.location.pathname);
@@ -100,10 +71,39 @@ const App = () => {
         };
     }, []);
 
+    function DemoPageContent({ pathname }: { pathname: string }) {
+        if (pathname === '/categories/1') {
+            return <DatabaseQuestions />;
+        }
+
+        return (
+            <Box
+                sx={{
+                    py: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+            >
+                <Typography>Dashboard content for {pathname}</Typography>
+            </Box>
+        );
+    }
+
     return (
         <AppProvider branding={{ title: "AtSystemEngineering" }} theme={theme} navigation={NAVIGATION(router.navigate)} router={router} session={session} authentication={authentication}>
             <DashboardLayout>
-                <DemoPageContent pathname={pathname} />
+                <Routes>
+                    <Route path="/" element={<DemoPageContent pathname={pathname} />} />
+                    <Route path="/categories/1" element={<DatabaseQuestions />} />
+                    <Route path="/categories/2" element={<Typography>API設計のコンテンツ</Typography>} />
+                    <Route path="/categories/3" element={<Typography>UI設計のコンテンツ</Typography>} />
+                    <Route path="/questions/1" element={<Question1 />} />
+                    <Route path="/questions/2" element={<Question2 />} />
+                    <Route path="/questions/1/feedback" element={<Feedback1 />} />
+                    <Route path="/questions/2/feedback" element={<Feedback2 />} />
+                </Routes>
             </DashboardLayout>
         </AppProvider>
     );
