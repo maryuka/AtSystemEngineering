@@ -104,7 +104,7 @@ const renderTable = (content: string) => {
                 <TableBody>
                     {
                         tables.map((table, index) => (
-                            <TableRow key={index} sx={{ paddingY: 0 }}>
+                            <TableRow key={`answer-${index}`} sx={{ paddingY: 0 }}>
                                 <TableCell sx={{ paddingY: 0 }}> {table.tableName} </TableCell>
                                 < TableCell sx={{ paddingY: 0 }
                                 }>

@@ -70,7 +70,7 @@ const App = () => {
             searchParams: new URLSearchParams(window.location.search),
             navigate: (path) => {
                 window.history.pushState({}, '', path);
-                setPathname(path);
+                setPathname(path.toString());
             },
         };
     }, [pathname]);
@@ -97,18 +97,6 @@ const App = () => {
             signOut: () => {
                 setSession(null);
             },
-        };
-    }, []);
-
-    useEffect(() => {
-        const handlePopState = () => {
-            setPathname(window.location.pathname);
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
         };
     }, []);
 
