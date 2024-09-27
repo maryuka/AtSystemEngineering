@@ -174,7 +174,7 @@ export default function Question1() {
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                <Button variant="contained" color="primary" onClick={() => { window.location.href = '/question/1/feedback'; }}>
+                <Button variant="contained" color="primary" onClick={() => { window.location.href = '/questions/1/feedback'; }}>
                     提出
                 </Button>
             </Box>
