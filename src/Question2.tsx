@@ -190,7 +190,9 @@ export default function Question2() {
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                <Button variant="contained" color="primary" onClick={() => { createPost() }}  > Submit </Button>
+                <Button variant="contained" color="primary" onClick={() => {window.location.href = '/question/2/feedback';}}>
+                    Submit
+                </Button>
             </Box>
         </Container>
     );

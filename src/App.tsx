@@ -12,39 +12,39 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const NAVIGATION = (navigate: (path: string) => void) => [
     {
-        segment: '1',
+        segment: 'question/1',
         title: '問題1',
         icon: <StorageIcon />,
-        onClick: () => navigate('/1'),
+        onClick: () => navigate('/question/1'),
     },
     {
-        segment: '2',
+        segment: 'question/2',
         title: '問題2',
         icon: <StorageIcon />,
-        onClick: () => navigate('/2'),
+        onClick: () => navigate('/question/2'),
     },
     {
-        segment: '1/feedback',
+        segment: 'question/1/feedback',
         title: 'フィードバック1',
         icon: <ThumbUpAltIcon />,
-        onClick: () => navigate('/1/feedback'),
+        onClick: () => navigate('/question/1/feedback'),
     },
     {
-        segment: '2/feedback',
+        segment: 'question/2/feedback',
         title: 'フィードバック2',
         icon: <ThumbUpAltIcon />,
-        onClick: () => navigate('/2/feedback'),
+        onClick: () => navigate('/question/2/feedback'),
     },
 ];
 
 function DemoPageContent({ pathname }: { pathname: string }) {
-    if (pathname === '/1/feedback')
+    if (pathname === '/question/1/feedback')
         return <Feedback1 />;
-    if (pathname === '/2/feedback')
+    if (pathname === '/question/2/feedback')
         return <Feedback2 />;
-    if (pathname === '/1')
+    if (pathname === '/question/1')
         return <Question1 />;
-    if (pathname === '/2')
+    if (pathname === '/question/2')
         return <Question2 />;
 
     return (
