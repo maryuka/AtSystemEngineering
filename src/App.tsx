@@ -10,30 +10,30 @@ import Feedback2 from './Feedback2.tsx';
 import StorageIcon from '@mui/icons-material/Storage';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
-const NAVIGATION: Navigation = [
-    // {
-    //     kind: 'header',
-    //     title: 'Main items',
-    // },
+const NAVIGATION = (navigate: (path: string) => void) => [
     {
         segment: '1',
         title: '問題1',
         icon: <StorageIcon />,
+        onClick: () => navigate('/1'),
     },
     {
         segment: '2',
         title: '問題2',
         icon: <StorageIcon />,
+        onClick: () => navigate('/2'),
     },
     {
         segment: '1/feedback',
         title: 'フィードバック1',
         icon: <ThumbUpAltIcon />,
+        onClick: () => navigate('/1/feedback'),
     },
     {
         segment: '2/feedback',
         title: 'フィードバック2',
         icon: <ThumbUpAltIcon />,
+        onClick: () => navigate('/2/feedback'),
     },
 ];
 
@@ -67,8 +67,11 @@ const App = () => {
     const router = useMemo<Router>(() => {
         return {
             pathname,
-            searchParams: new URLSearchParams(),
-            navigate: (path) => setPathname(String(path)),
+            searchParams: new URLSearchParams(window.location.search),
+            navigate: (path) => {
+                window.history.pushState({}, '', path);
+                setPathname(path);
+            },
         };
     }, [pathname]);
     const [session, setSession] = useState<Session | null>({
@@ -97,7 +100,7 @@ const App = () => {
 
 
     return (
-        <AppProvider branding={{ title: "AtSystemEngineering" }} theme={theme} navigation={NAVIGATION} router={router} session={session} authentication={authentication}>
+        <AppProvider branding={{ title: "AtSystemEngineering" }} theme={theme} navigation={NAVIGATION(router.navigate)} router={router} session={session} authentication={authentication}>
             <DashboardLayout>
                 <DemoPageContent pathname={pathname} />
             </DashboardLayout>
