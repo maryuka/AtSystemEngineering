@@ -1,6 +1,8 @@
 import { Container, Typography, Box, List, ListItem, ListItemText, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
 import { useState } from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const answers = [
     {
@@ -126,11 +128,24 @@ const renderTable = (content: string) => {
 };
 
 
+const baseURL = "https://localhost:3000";
+
 export default function Question2() {
-    const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-    const handleAnswerClick = (answer: number) => {
-        setSelectedAnswer(answer);
-    };
+    const [answer, setAnswer] = useState<string | null>(null);
+    const nav = useNavigate();
+
+    function createPost() {
+        console.log(answer);
+        axios
+            .post(baseURL, {
+                content: answer,
+            })
+            .then((response) => {
+                // ページ遷移がしたい
+
+                // setPost(response.data);
+            });
+    }
 
     return (
         <Container maxWidth="xl" >
@@ -167,14 +182,15 @@ export default function Question2() {
                         }}
                         // monacoeditorのvalueを更新する
                         onChange={(value) => {
-                            console.log(value);
+                            // console.log(value);
+                            setAnswer(value);
                         }}
                     />
 
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                <Button variant="contained" color="primary" > Submit </Button>
+                <Button variant="contained" color="primary" onClick={() => { createPost() }}  > Submit </Button>
             </Box>
         </Container>
     );

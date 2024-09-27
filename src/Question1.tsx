@@ -1,6 +1,7 @@
 import { Container, Typography, Box, List, ListItem, ListItemText, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const answers = [
     {
@@ -124,25 +125,12 @@ const renderTable = (content: string) => {
     );
 };
 
-const baseURL = "https://localhost:3000";
-
 export default function Question1() {
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
     const handleAnswerClick = (answer: number) => {
         setSelectedAnswer(answer);
     };
-
-    function createPost() {
-        axios
-            .post(baseURL, {
-                answer: selectedAnswer,
-            })
-            .then((response) => {
-                // ページ遷移
-                // setPost(response.data);
-            });
-    }
-
 
     return (
         <Container maxWidth="xl" >
@@ -186,7 +174,7 @@ export default function Question1() {
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                <Button variant="contained" color="primary" onClick={() => { createPost() }} > Submit </Button>
+                <Button variant="contained" color="primary" > Submit </Button>
             </Box>
         </Container>
     );
