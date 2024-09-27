@@ -153,7 +153,7 @@ export default function Question2() {
             <Box sx={{ my: 4, display: 'flex', flexDirection: 'row', gap: 4 }}>
                 <Box sx={{ display: 'flex', width: '40%', flexDirection: 'column', gap: 4 }}>
                     <Typography variant="h4" > 問題 </Typography>
-                    < Typography variant="h6" > 簡易なECサイトのテーブル設計を行う際、以下の要件を満たす正しいテーブル設計を選んでください。</Typography>
+                    < Typography variant="h6" >  簡易なECサイトのテーブル設計を行う際、以下の要件を満たしパフォーマンスと保守性のバランスの取れたテーブルを設計してください。</Typography>
                     < Box sx={{ display: 'flex', width: '50%', flexDirection: 'column', gap: 1 }
                     }>
                         <Typography variant="body1" > 要件 </Typography>
@@ -190,8 +190,8 @@ export default function Question2() {
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                <Button variant="contained" color="primary" onClick={() => {window.location.href = '/question/2/feedback';}}>
-                    Submit
+                <Button variant="contained" color="primary" onClick={() => { window.location.href = '/question/2/feedback'; }}>
+                    提出
                 </Button>
             </Box>
         </Container>

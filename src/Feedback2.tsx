@@ -1,5 +1,6 @@
 import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import MonacoEditor from '@uiw/react-monacoeditor';
+import NavigateButton from "./NavigationButton";
 
 const res = {
     "input_scores": {
@@ -27,13 +28,14 @@ const res = {
 const Feedback2 = () => {
     return (
         <Container maxWidth="xl">
-            <Box sx={{ my: 4, display: 'flex', flexDirection: 'row', gap: 4 }}>
-                <Box sx={{ width: "60%" }}>
+            <Box sx={{ my: 4 }}>
+                <Box>
                     <Typography variant="h4" >提出</Typography>
                     <br />
                     <br />
                     <Typography variant="h4">{res.feedback}</Typography>
-                    <TableContainer component={Paper} sx={{ marginTop: "80px" }}>
+                    <Typography variant="h5" sx={{ marginTop: "80px" }}>評価</Typography>
+                    <TableContainer component={Paper} >
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -74,8 +76,21 @@ const Feedback2 = () => {
                         </Table>
                     </TableContainer>
                 </Box>
-                <Box sx={{ width: "40%" }}>
-                    <Typography variant="h4">解答例</Typography>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row", gap: 4, marginTop: "80px" }} maxWidth="xl">
+                <Box sx={{ width: "50%" }}>
+                    <Typography variant="h5">解答例</Typography>
+                    <MonacoEditor
+                        language="html"
+                        height="500px"
+                        value={res.pareto_diagrams[0]}
+                        options={{
+                            theme: 'vs-dark',
+                        }}
+                    />
+                </Box>
+                <Box sx={{ width: "50%" }}>
+                    <Typography variant="h5">あなたの解答</Typography>
                     <MonacoEditor
                         language="html"
                         height="500px"
@@ -87,7 +102,9 @@ const Feedback2 = () => {
                 </Box>
             </Box>
 
-            {/* <NavigateButton /> */}
+            <Box sx={{ display: "flex", justifyContent: "right", marginTop: 4, paddingBottom: 10 }}>
+                <NavigateButton />
+            </Box>
         </Container>
     )
 }

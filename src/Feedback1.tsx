@@ -14,10 +14,11 @@ const Feedback1 = () => {
                     <Typography variant="h4">提出</Typography>
                     <br />
                     <br />
-                    <Typography variant="h4">1点/3点</Typography>
+                    <Typography variant="h3" sx={{ marginLeft: "200px" }}>1点/3点</Typography>
                 </Box>
-                <img style={{ width: "300px", marginLeft: "auto" }} src="/chart.png" alt="chart" />
+                <img style={{ width: "300px", marginLeft: "auto", marginRight: "100px" }} src="/chart.png" alt="chart" />
             </Box>
+            <Typography variant="h5" sx={{ marginTop: "20px" }}>評価</Typography>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
