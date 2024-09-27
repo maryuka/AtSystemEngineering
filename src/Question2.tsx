@@ -3,6 +3,8 @@ import { useState } from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ERDiagram from './ER';
+import MermaidExplanation from './Explanation';
 
 const answers = [
     {
@@ -169,13 +171,18 @@ export default function Question2() {
                             </ListItem>
                         </List>
                     </Box>
+                    {/* MUIで区切り線 */}
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }} />
+                    <Typography variant="h6" > 解答方法 </Typography>
+                    マーメイド記法を使ってテーブル設計を行ってください。
+                    <MermaidExplanation />
                 </Box>
                 < Box sx={{ display: 'flex', width: '60%', flexDirection: 'column' }}>
                     <Typography variant="h4" > 解答 </Typography>
                     {/* monacoeditorを使ってコード入力をする */}
                     <MonacoEditor
                         language="html"
-                        height="300px"
+                        height="500px"
                         value=''
                         options={{
                             theme: 'vs-dark',
@@ -186,7 +193,7 @@ export default function Question2() {
                             setAnswer(value);
                         }}
                     />
-
+                    {/* <ERDiagram answer={answer} /> */}
                 </Box>
             </Box>
             < Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
