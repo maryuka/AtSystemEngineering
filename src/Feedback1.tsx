@@ -8,8 +8,8 @@ const rows = [
 
 const Feedback1 = () => {
     return (
-        <Container>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+        <Container maxWidth="xl">
+            <Box sx={{ my: 4, display: 'flex', flexDirection: 'row' }}>
                 <Box>
                     <Typography variant="h4">提出</Typography>
                     <br />

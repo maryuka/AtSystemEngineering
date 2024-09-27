@@ -1,56 +1,92 @@
 import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import NavigateButton from "./NavigationButton";
+import MonacoEditor from '@uiw/react-monacoeditor';
 
-const rows = [
-    { prob_id: 1, youranswer: 1, correctanswer: 1, explanation: [`members テーブルは会員の基本情報（id, name, email）を適切に保持しています。\nproducts テーブルは商品情報と、その商品が属するカテゴリを示す category_id を持っています。\ncategories テーブルはカテゴリの情報（id, name）を保持しています。\norders テーブルは、どの会員（member_id）がどの商品（product_id）をいくつ（quantity）注文したかを記録しています。\nこの設計は、会員登録、商品のカテゴリ分類、商品の注文という要件を正しく満たしています。`] },
-    // { prob_id: 2, youranswer: 2, correctanswer: 2 },
-    // { prob_id: 3, youranswer: 3, correctanswer: 2 },
-];
+const res = {
+    "input_scores": {
+        "relation_score": 1,
+        "entity_score": 2,
+        "column_name_score": 7.444444444444445
+    },
+    "pareto_scores": {
+        "relation_score": 1,
+        "entity_score": 3,
+        "column_name_score": 9.5
+    },
+    "score_differences": {
+        "relation_score_diff": 0,
+        "entity_score_diff": -1,
+        "column_name_score_diff": -2.0555555555555554
+    },
+    "pareto_diagrams": [
+        "erDiagram\n                    CUSTOMER {\n                        int customer_id PK\n                        string first_name\n                        string last_name\n                        string email_address\n                        string physical_address\n                        string phone_number\n                    }\n                    ORDER {\n                        int order_id PK\n                        int customer_id FK\n                        date order_date\n                        float total_amount\n                        string shipping_method\n                        string payment_status\n                        date estimated_delivery_date\n                    }\n                    PRODUCT {\n                        int product_id PK\n                        string product_name\n                        string product_description\n                        float unit_price\n                        int stock_quantity\n                    }\n                    ORDER ||--o{ PRODUCT : \"includes\"\n                    CUSTOMER ||--o{ ORDER : \"places\"",
+        "erDiagram\n                    X {\n                        int x_id PK\n                    }\n                    Y {\n                        int y_id PK\n                    }\n                    Z {\n                        int z_id PK\n                    }"
+    ],
+    "feedback": "エンティティの数が軽視された設計になっています。 カラム名の長さが軽視された設計になっています。"
+}
 
 const Feedback2 = () => {
     return (
-        <Container>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                <Box>
-                    <Typography variant="h4">提出</Typography>
+        <Container maxWidth="xl">
+            <Box sx={{ my: 4, display: 'flex', flexDirection: 'row', gap: 4 }}>
+                <Box sx={{ width: "60%" }}>
+                    <Typography variant="h4" >提出</Typography>
                     <br />
                     <br />
-                    <Typography variant="h4">1点/3点</Typography>
-                </Box>
-                <img style={{ width: "300px", marginLeft: "auto" }} src="/chart.png" alt="chart" />
-            </Box>
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>問題番号</TableCell>
-                            <TableCell>あなたの答え</TableCell>
-                            <TableCell>解答</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <>
-                                <TableRow
-                                    key={row.prob_id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
+                    <Typography variant="h4">{res.feedback}</Typography>
+                    <TableContainer component={Paper} sx={{ marginTop: "80px" }}>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    <TableCell>リレーションの数</TableCell>
+                                    <TableCell>エンティティの数</TableCell>
+                                    <TableCell>カラム名の短さ</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>絶対スコア</TableCell>
                                     <TableCell component="th" scope="row">
-                                        {row.prob_id}
+                                        {res.input_scores.relation_score}
                                     </TableCell>
-                                    <TableCell>{row.youranswer}</TableCell>
-                                    <TableCell>{row.correctanswer}</TableCell>
+                                    <TableCell>{res.input_scores.entity_score}</TableCell>
+                                    <TableCell>{res.input_scores.column_name_score}</TableCell>
+                                </TableRow>
+                                <TableRow
+                                // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell>パレット最適</TableCell>
+                                    <TableCell component="th" scope="row">
+                                        {res.pareto_scores.relation_score}
+                                    </TableCell>
+                                    <TableCell>{res.pareto_scores.entity_score}</TableCell>
+                                    <TableCell>{res.pareto_scores.column_name_score}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell colSpan={3}>
-                                        {row.explanation}
+                                    <TableCell>スコアの差</TableCell>
+                                    <TableCell component="th" scope="row">
+                                        {res.score_differences.relation_score_diff}
                                     </TableCell>
+                                    <TableCell>{res.score_differences.entity_score_diff}</TableCell>
+                                    <TableCell>{res.score_differences.column_name_score_diff}</TableCell>
                                 </TableRow>
-                            </>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+                <Box sx={{ width: "40%" }}>
+                    <Typography variant="h4">解答例</Typography>
+                    <MonacoEditor
+                        language="html"
+                        height="500px"
+                        value={res.pareto_diagrams[0]}
+                        options={{
+                            theme: 'vs-dark',
+                        }}
+                    />
+                </Box>
+            </Box>
+
             {/* <NavigateButton /> */}
         </Container>
     )
