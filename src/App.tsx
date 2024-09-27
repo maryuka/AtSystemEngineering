@@ -1,7 +1,7 @@
 import theme from './theme.ts';
 import { AppProvider, DashboardLayout, Navigation, Router, Session } from '@toolpad/core'
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Feedback1 from './Feedback1.tsx';
 import Question1 from './Question1.tsx';
@@ -39,13 +39,13 @@ const NAVIGATION = (navigate: (path: string) => void) => [
 
 function DemoPageContent({ pathname }: { pathname: string }) {
     if (pathname === '/1/feedback')
-        return <Feedback1 />
+        return <Feedback1 />;
     if (pathname === '/2/feedback')
-        return <Feedback2 />
+        return <Feedback2 />;
     if (pathname === '/1')
-        return <Question1 />
+        return <Question1 />;
     if (pathname === '/2')
-        return <Question2 />
+        return <Question2 />;
 
     return (
         <Box
@@ -63,7 +63,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
 }
 
 const App = () => {
-    const [pathname, setPathname] = useState('/');
+    const [pathname, setPathname] = useState(window.location.pathname);
     const router = useMemo<Router>(() => {
         return {
             pathname,
@@ -74,6 +74,7 @@ const App = () => {
             },
         };
     }, [pathname]);
+
     const [session, setSession] = useState<Session | null>({
         user: {
             name: 'Bharat Kashyap',
@@ -81,6 +82,7 @@ const App = () => {
             image: '/panda.jpg',
         },
     });
+
     const authentication = useMemo(() => {
         return {
             signIn: () => {
@@ -98,15 +100,25 @@ const App = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const handlePopState = () => {
+            setPathname(window.location.pathname);
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, []);
 
     return (
         <AppProvider branding={{ title: "AtSystemEngineering" }} theme={theme} navigation={NAVIGATION(router.navigate)} router={router} session={session} authentication={authentication}>
             <DashboardLayout>
                 <DemoPageContent pathname={pathname} />
             </DashboardLayout>
-
         </AppProvider>
-    )
-}
+    );
+};
 
-export default App
+export default App;
