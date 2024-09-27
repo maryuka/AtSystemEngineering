@@ -1,4 +1,5 @@
 import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import NavigateButton from "./NavigationButton";
 
 const rows = [
     { prob_id: 1, youranswer: 1, correctanswer: 1, explanation: [`members テーブルは会員の基本情報（id, name, email）を適切に保持しています。\nproducts テーブルは商品情報と、その商品が属するカテゴリを示す category_id を持っています。\ncategories テーブルはカテゴリの情報（id, name）を保持しています。\norders テーブルは、どの会員（member_id）がどの商品（product_id）をいくつ（quantity）注文したかを記録しています。\nこの設計は、会員登録、商品のカテゴリ分類、商品の注文という要件を正しく満たしています。`] },
@@ -14,10 +15,11 @@ const Feedback1 = () => {
                     <Typography variant="h4">提出</Typography>
                     <br />
                     <br />
-                    <Typography variant="h4">1点/3点</Typography>
+                    <Typography variant="h3" sx={{ marginLeft: "200px" }}>満点(1点/1点)</Typography>
                 </Box>
-                <img style={{ width: "300px", marginLeft: "auto" }} src="/chart.png" alt="chart" />
+                <img style={{ width: "300px", marginLeft: "auto", marginRight: "100px" }} src="/chart.png" alt="chart" />
             </Box>
+            <Typography variant="h5" sx={{ marginTop: "20px" }}>評価</Typography>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -50,6 +52,10 @@ const Feedback1 = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <Box sx={{ display: "flex", justifyContent: "right", marginTop: 4, paddingBottom: 10 }}>
+                <NavigateButton />
+            </Box>
         </Container>
     )
 }

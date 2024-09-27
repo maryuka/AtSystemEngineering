@@ -6,14 +6,14 @@ export default function NavigateButton() {
   const [loading, setLoading] = React.useState(false);
   return (
     <Box sx={{ mt: 2 }}>
-      <a href="/page">
+      <a href="/">
         <LoadingButton
           variant="contained"
           color="primary"
           loading={loading}
           onClick={() => setLoading(true)}
         >
-          Go to Page
+          問題一覧に戻る
         </LoadingButton>
       </a>
     </Box>
