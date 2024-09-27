@@ -1,39 +1,39 @@
 import theme from './theme.ts';
-import { AppProvider, DashboardLayout, Navigation, Router } from '@toolpad/core'
-import { Dashboard } from '@mui/icons-material';
+import { AppProvider, DashboardLayout, Navigation, Router, Session } from '@toolpad/core'
 
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Feedback1 from './Feedback1.tsx';
 import Question1 from './Question1.tsx';
 import Question2 from './Question2.tsx';
 import Feedback2 from './Feedback2.tsx';
-
+import StorageIcon from '@mui/icons-material/Storage';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const NAVIGATION: Navigation = [
-    {
-        kind: 'header',
-        title: 'Main items',
-    },
+    // {
+    //     kind: 'header',
+    //     title: 'Main items',
+    // },
     {
         segment: '1',
         title: '問題1',
-        icon: <Dashboard />,
+        icon: <StorageIcon />,
     },
     {
         segment: '2',
         title: '問題2',
-        icon: <Dashboard />,
+        icon: <StorageIcon />,
     },
     {
         segment: '1/feedback',
         title: 'フィードバック1',
-        icon: <Dashboard />,
+        icon: <ThumbUpAltIcon />,
     },
     {
         segment: '2/feedback',
         title: 'フィードバック2',
-        icon: <Dashboard />,
+        icon: <ThumbUpAltIcon />,
     },
 ];
 
@@ -71,9 +71,33 @@ const App = () => {
             navigate: (path) => setPathname(String(path)),
         };
     }, [pathname]);
+    const [session, setSession] = useState<Session | null>({
+        user: {
+            name: 'Bharat Kashyap',
+            email: 'bharatkashyap@outlook.com',
+            image: '/panda.jpg',
+        },
+    });
+    const authentication = useMemo(() => {
+        return {
+            signIn: () => {
+                setSession({
+                    user: {
+                        name: 'Bharat Kashyap',
+                        email: 'bharatkashyap@outlook.com',
+                        image: 'https://avatars.githubusercontent.com/u/19550456',
+                    },
+                });
+            },
+            signOut: () => {
+                setSession(null);
+            },
+        };
+    }, []);
+
 
     return (
-        <AppProvider theme={theme} navigation={NAVIGATION} router={router}>
+        <AppProvider branding={{ title: "AtSystemEngineering" }} theme={theme} navigation={NAVIGATION} router={router} session={session} authentication={authentication}>
             <DashboardLayout>
                 <DemoPageContent pathname={pathname} />
             </DashboardLayout>
